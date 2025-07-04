@@ -58,7 +58,7 @@ const password = ref('');
 const showPassword = ref(false);
 
 onMounted(() => {
-  // Tạo link element để load Font Awesome
+
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
@@ -70,7 +70,7 @@ const togglePassword = () => {
 };
 
 const handleLogin = async () => {
-  // Thêm validation logic ở đây nếu cần
+  // Thêm validation logic ở đây
   if (username.value && password.value) {
     router.push('/homepage');
   }
