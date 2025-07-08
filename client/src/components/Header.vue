@@ -26,11 +26,11 @@
         <i :class="isDarkMode ? 'fas fa-moon' : 'fas fa-sun'"></i>
       </button>
       
-      <button class="icon-btn" @click="openSettings">
+      <button class="icon-btn">
         <i class="fas fa-cog"></i>
       </button>
       
-      <button class="icon-btn notification-badge" @click="showNotifications">
+      <button class="icon-btn notification-badge" >
         <i class="fas fa-bell"></i>
       </button>
       
@@ -121,35 +121,27 @@ const toggleTheme = () => {
 }
 
 const handleSearch = () => {
-  console.log('Searching for:', searchQuery.value)
+  console.log('tìm kiếm cho :', searchQuery.value)
 }
 
 const openSettings = () => {
   showProfileMenu.value = false
-  alert('Settings panel would open here')
-}
-
-const showNotifications = () => {
-  alert('You have 3 new notifications!')
+  alert('chức năng đang phát triển')
 }
 
 const toggleProfile = () => {
   showProfileMenu.value = !showProfileMenu.value
 }
 
-const shareProfile = () => {
-  showProfileMenu.value = false
-  alert('Share profile functionality')
-}
 
 const changePassword = () => {
   showProfileMenu.value = false
-  alert('Change password functionality')
+  alert('chức năng đang phát triển')
 }
 
 const logout = () => {
   showProfileMenu.value = false
-  alert('Logout functionality')
+  alert('chức năng đang phát triển')
 }
 
 const handleClickOutside = (event) => {
