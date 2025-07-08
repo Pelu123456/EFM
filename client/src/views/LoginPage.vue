@@ -101,8 +101,8 @@ html, body {
   height: 100vh;
   overflow: hidden;
   display: flex;
-  align-items: stretch;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -122,27 +122,21 @@ html, body {
 }
 
 .input-group {
-  width: 600px;
-  height: 100vh;
-  min-height: 100vh;
-  max-height: 100vh;
+  width: 450px;
+  max-width: 90vw;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-radius: 0;
-  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 1;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   overflow: hidden;
 }
 
 .login-form {
   width: 100%;
-  max-width: 450px;
-  padding: 40px 50px;
+  padding: 50px 40px;
   color: #1a1a1a;
 }
 
@@ -298,49 +292,32 @@ html, body {
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .page-background {
-    justify-content: center;
-    align-items: stretch;
-  }
-  
   .input-group {
-    width: 100vw;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-    border-left: none;
-    box-shadow: none;
-    overflow: hidden;
-  }
-  
-  .login-form {
-    padding: 35px 30px;
+    width: 85vw;
     max-width: 400px;
   }
   
+  .login-form {
+    padding: 40px 30px;
+  }
+  
   .form-header h2 {
-    font-size: 24px;
+    font-size: 28px;
   }
 }
 
 @media (max-width: 480px) {
   .input-group {
-    width: 100vw;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-    overflow: hidden;
+    width: 90vw;
+    max-width: 350px;
   }
   
   .login-form {
-    padding: 30px 25px;
-    max-width: 360px;
+    padding: 35px 25px;
   }
   
   .form-header h2 {
-    font-size: 22px;
+    font-size: 24px;
   }
   
   .form-input {
