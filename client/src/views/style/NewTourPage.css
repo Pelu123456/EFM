@@ -224,16 +224,32 @@
   background: #0056b3;
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
+
+/* Responsive Design from 426px to 768px */
+@media (min-width: 426px) and (max-width: 600px) {
   .tour-container {
-    padding: 10px;
+    padding: 15px;
   }
-  
+
   .create-tour-form {
-    padding: 20px;
+    padding: 25px;
   }
-  
+
+  .header-content h2 {
+    font-size: 26px;
+  }
+
+  .form-group select,
+  .form-group input[type="text"] {
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .submit-btn {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+
   .radio-group {
     flex-direction: column;
     gap: 10px;

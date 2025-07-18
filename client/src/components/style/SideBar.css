@@ -121,12 +121,114 @@
 
 .sidebar.closed .nav-link i {
   margin-right: 0;
+  display: flex;
+  justify-content: center;
+  width: auto;
 }
 
 .nav-link span {
   flex: 1;
   opacity: 1;
   transition: opacity 0.2s ease;
+}
+
+/* Dropdown parent styling */
+.dropdown-parent {
+  position: relative;
+}
+
+.dropdown-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+  margin-left: auto;
+  width: 12px !important;
+  margin-right: 0 !important;
+}
+
+.dropdown-arrow.rotated {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  margin-top: 4px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.dropdown-menu.show {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.dropdown-item {
+  margin-bottom: 1px;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item.active {
+  background: rgba(34, 211, 238, 0.3);
+}
+
+.dropdown-item.active .nav-link {
+  background: rgba(34, 211, 238, 0.2);
+  color: #22d3ee;
+  border-right: 3px solid #22d3ee;
+}
+
+.dropdown-item .nav-link {
+  padding: 10px 24px 10px 36px;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-left: 0;
+  background: transparent;
+  border-right: none;
+}
+
+.dropdown-item .nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
+.dropdown-item .nav-link i {
+  margin-right: 8px;
+  font-size: 14px;
+  width: 16px;
+  text-align: center;
+}
+
+/* Parent item active state - only when parent itself is selected, not children */
+.dropdown-parent.active:not(.has-active-child) > .nav-link {
+  background: rgba(34, 211, 238, 0.2);
+  color: #22d3ee;
+  border-right: 3px solid #22d3ee;
+}
+
+/* Parent item when it has active child - NO special styling */
+.dropdown-parent.has-active-child > .nav-link {
+  background: transparent;
+  color: #cbd5e1;
+  border-right: none;
+}
+
+/* Hover effects */
+.dropdown-toggle:hover .dropdown-arrow {
+  color: #f1f5f9;
 }
 
 .expandable {
@@ -162,13 +264,45 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Fix icon Tournament bị lệch khi thu gọn sidebar */
+.sidebar.closed .dropdown-toggle {
+  justify-content: center !important; /* Center icon */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.sidebar.closed .dropdown-toggle i {
+  margin-right: 0 !important;
+}
+
+.sidebar.closed .dropdown-toggle .dropdown-arrow {
+  display: none !important; /* Ẩn mũi tên */
+}
+
+/* Responsive Design from 426px to 768px */
+@media (min-width: 426px) and (max-width: 768px) {
   .sidebar {
-    transform: translateX(-100%);
+    position: fixed;
+    width: 220px;
+    z-index: 1000;
+    height: 100vh;
+    left: -220px;
+    top: 0;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .sidebar.open {
-    transform: translateX(0);
+    left: 0;
+    width: 220px;
+  }
+
+  .sidebar.closed {
+    left: -220px;
+    width: 220px;
+  }
+
+  .main-wrapper {
+    margin-left: 0 !important;
   }
 }
+
