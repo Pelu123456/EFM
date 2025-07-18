@@ -15,7 +15,7 @@ export default {
     },
     handleLogin() {
       if (username.value && password.value) {
-        this.$router.push("/homepage");
+        this.$router.push("/dashboard");
       }
     },
   },

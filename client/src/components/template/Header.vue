@@ -26,13 +26,10 @@
         <i :class="isDarkMode ? 'fas fa-moon' : 'fas fa-sun'"></i>
       </button>
       
-      <button class="icon-btn">
+      <button class="icon-btn"  @click="openSettings">
         <i class="fas fa-cog"></i>
       </button>
-      
-      <button class="icon-btn notification-badge" >
-        <i class="fas fa-bell"></i>
-      </button>
+    
       
       <div class="profile-container">
         <button class="icon-btn profile-btn" @click="toggleProfile">
@@ -54,19 +51,19 @@
           <div class="profile-menu">
             <button class="profile-menu-item" @click="openSettings">
               <i class="fas fa-cog"></i>
-              <span>Cài đặt</span>
+              <span>Setting</span>
             </button>
             
             <button class="profile-menu-item" @click="changePassword">
               <i class="fas fa-lock"></i>
-              <span>Đổi mật khẩu</span>
+              <span>Change password</span>
             </button>
             
             <div class="profile-menu-divider"></div>
             
             <button class="profile-menu-item logout-btn" @click="logout">
               <i class="fas fa-sign-out-alt"></i>
-              <span>Đăng xuất</span>
+              <span>Logout</span>
             </button>
           </div>
         </div>
@@ -74,6 +71,7 @@
     </div>
   </header>
 </template>
+
 
 <script src="../logic/Header.js"></script>
 

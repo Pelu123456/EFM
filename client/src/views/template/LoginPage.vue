@@ -3,23 +3,23 @@
     <div class="input-group">
       <form class="login-form" @submit.prevent="handleLogin">
         <div class="form-header">
-          <h2>Đăng nhập</h2>
+          <h2>Sign in</h2>
         </div>
         
         <div class="form-field">
-          <label for="username">Email</label>
+          <label for="username">Username</label>
           <input 
             type="text"
             id="username"
             v-model="username"
             class="form-input"
-            placeholder="Nhập email"
+            placeholder="Enter username"
             required
           />
         </div>
 
         <div class="form-field">
-          <label for="password">Mật Khẩu</label>
+          <label for="password">Password</label>
           <div class="password-input-wrapper">
             <input 
               type="password"
@@ -27,7 +27,7 @@
               v-model="password"
               :type="showPassword ? 'text' : 'password'"
               class="form-input"
-              placeholder="Nhập mật khẩu"
+              placeholder="Enter password"
               required
             />
             <button 
@@ -41,7 +41,7 @@
         </div>
 
         <button type="submit" class="submit-btn">
-          Đăng nhập
+          Sign in
         </button>
       </form>
     </div>

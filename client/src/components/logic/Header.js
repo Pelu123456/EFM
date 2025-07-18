@@ -15,22 +15,22 @@ export default {
       this.isDarkMode = !this.isDarkMode
     },
     handleSearch() {
-      console.log('tìm kiếm cho :', this.searchQuery)
+      console.log('Search for... :', this.searchQuery)
     },
     openSettings() {
       this.showProfileMenu = false
-      alert('chức năng đang phát triển')
+      alert('Feature in development')
     },
     toggleProfile() {
       this.showProfileMenu = !this.showProfileMenu
     },
     changePassword() {
       this.showProfileMenu = false
-      alert('chức năng đang phát triển')
+      alert('Feature in development')
     },
     logout() {
       this.showProfileMenu = false
-      alert('chức năng đang phát triển')
+      alert('Feature in development')
     },
     handleClickOutside(event) {
       const profileContainer = document.querySelector('.profile-container')
