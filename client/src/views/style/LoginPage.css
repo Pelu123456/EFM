@@ -210,43 +210,28 @@ html, body {
   width: 100%;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
+/* Responsive Design from 426px to 768px */
+@media (min-width: 426px) and (max-width: 768px) {
   .input-group {
     width: 85vw;
     max-width: 400px;
   }
-  
+
   .login-form {
     padding: 40px 30px;
   }
-  
+
   .form-header h2 {
     font-size: 28px;
   }
-}
 
-@media (max-width: 480px) {
-  .input-group {
-    width: 90vw;
-    max-width: 350px;
-  }
-  
-  .login-form {
-    padding: 35px 25px;
-  }
-  
-  .form-header h2 {
-    font-size: 24px;
-  }
-  
   .form-input {
-    padding: 12px 16px;
-    font-size: 14px;
+    padding: 16px 20px;
+    font-size: 16px;
   }
-  
+
   .submit-btn {
-    padding: 14px;
-    font-size: 14px;
+    padding: 16px;
+    font-size: 16px;
   }
 }
