@@ -51,12 +51,14 @@
           <div class="profile-menu">
             <button class="profile-menu-item" @click="openSettings">
               <i class="fas fa-cog"></i>
-              <span>Setting</span>
+              <span>Account setting</span>
             </button>
             
-            <button class="profile-menu-item" @click="changePassword">
+            <button class="profile-menu-item change-pass-btn" @click="changePassword">
               <i class="fas fa-lock"></i>
-              <span>Change password</span>
+              <span>
+                <router-link to="/change-password">Change password</router-link>
+              </span>
             </button>
             
             <div class="profile-menu-divider"></div>

@@ -24,10 +24,6 @@ export default {
     toggleProfile() {
       this.showProfileMenu = !this.showProfileMenu
     },
-    changePassword() {
-      this.showProfileMenu = false
-      alert('Feature in development')
-    },
     logout() {
       this.showProfileMenu = false
       alert('Feature in development')
