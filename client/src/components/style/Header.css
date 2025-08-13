@@ -231,6 +231,11 @@
   color: #dc2626;
 }
 
+.profile-menu-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .header {
