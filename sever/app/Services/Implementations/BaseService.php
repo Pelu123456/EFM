@@ -37,4 +37,10 @@ class BaseService implements BaseServiceInterface
     {
         return $this->repository->delete($id);
     }
+
+    public function testBase()
+    {
+        $msg = $this->repository->testBase();
+        return response()->json(['Service' => 'Base Service OK', 'Repository' => $msg], 200);
+    }
 }

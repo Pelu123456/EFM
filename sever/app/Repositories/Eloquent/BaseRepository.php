@@ -39,4 +39,9 @@ class BaseRepository implements BaseRepositoryInterface
         $item = $this->find($id);
         return $item ? $item->delete() : false;
     }
+
+    public function testBase()
+    {
+        return 'Base Repo Testing OK';
+    }
 }
