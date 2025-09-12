@@ -2,8 +2,16 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Contracts\BaseRepositoryInterface;
+use App\Repositories\Eloquent\BaseRepository;
+use App\Services\Contracts\BaseServiceInterface;
+use App\Services\Implementations\BaseService;
+
+use App\Services\Contracts\AuthServiceInterface;
+use App\Services\Implementations\AuthService;
+use App\Repositories\Contracts\AuthRepositoryInterface;
+use App\Repositories\Eloquent\AuthRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,7 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(BaseRepositoryInterface::class, BaseRepository::class);
+        $this->app->bind(BaseServiceInterface::class, BaseService::class);
+        $this->app->bind(AuthServiceInterface::class,AuthService::class);
+        $this->app->bind(AuthRepositoryInterface::class,AuthRepository::class);
     }
 
     /**
@@ -20,8 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
-            return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
-        });
+        //
     }
 }
