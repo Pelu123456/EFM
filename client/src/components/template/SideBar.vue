@@ -61,14 +61,14 @@
               class="dropdown-item"
               :class="{ active: currentRoute === 'tournaments' }"
             >
-              <a
-                href="#"
+              <router-link
+                to="all-tournaments"
                 class="nav-link"
                 @click.prevent="setActive('tournaments')"
               >
                 <i class="fas fa-file-alt"></i>
                 <span>All tournaments</span>
-              </a>
+              </router-link>
             </li>
             <li
               class="dropdown-item"
