@@ -9,6 +9,9 @@ use Illuminate\Validation\ValidationException;
 use App\Services\Implementations\BaseService;
 use App\Repositories\Contracts\AuthRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthService extends BaseService implements AuthServiceInterface 
 {
@@ -65,17 +68,32 @@ class AuthService extends BaseService implements AuthServiceInterface
     {
         try{
             $token = JWTAuth::getToken();
-            if ($token) {
-                JWTAuth::invalidate($token);
+            if (!$token) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Token not provided'
+                ], 401);
             }
+            $user = JWTAuth::setToken($token)->authenticate();
+            JWTAuth::invalidate($token);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Đăng xuất thành công'
+                'message' => 'Logout completed'
             ]);
-        }catch (\Exception $e){
-             return response()->json([
+        } catch (TokenExpiredException $e) {
+            return response()->json([
                 'status' => 'error',
-                'message' => 'Dev bad, system error:" ' . $e->getMessage()
+                'message' => 'Token expired'
+            ], 401);
+        } catch (TokenInvalidException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Invalid Token'
+            ], 401);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Dev false, system error: ' . $e->getMessage()
             ], 500);
         }
     }

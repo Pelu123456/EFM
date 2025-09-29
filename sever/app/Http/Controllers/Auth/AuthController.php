@@ -18,22 +18,20 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-    public function testBase()
+    public function register(StoreUserRequest $request)
     {
-        return $this->authService->testBase(); 
-    }
-    public function testAuth()
-    {
-        return $this->authService->AuthTest();
-    }
-
-    public function store(StoreUserRequest $request)
-    {
-        return $this->authService->store($request->validated());
+        $validatedData = $request->validated();
+        return $this->authService->store($validatedData);
     }
 
     public function login(LoginRequest $request)
     {
-        return $this->authService->login($request->validated());
+        $validatedData = $request->validated();
+        return $this->authService->login($validatedData);
+    }
+
+    public function logout(Request $request)
+    {
+        return $this->authService->logout($request);
     }
 }
