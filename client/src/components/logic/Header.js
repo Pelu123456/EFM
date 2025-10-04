@@ -1,10 +1,11 @@
+import api from "../../api";
 export default {
   name: 'Header',
   emits: ['toggle-sidebar'],
   data() {
     return {
-      user_name: 'Nguyen Van A',
-      user_email: 'nguyenvana@gmail.com',
+      user_name: localStorage.getItem('user_name'),
+      user_email: localStorage.getItem('user_email'),
       searchQuery: '',
       isDarkMode: false,
       showProfileMenu: false
@@ -24,9 +25,18 @@ export default {
     toggleProfile() {
       this.showProfileMenu = !this.showProfileMenu
     },
-    logout() {
+    async logout() {
       this.showProfileMenu = false
-      alert('Feature in development')
+      const response = await api.post('/api/logout',{},{
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+      if(response.data.status === 'success'){
+        localStorage.clear()
+        this.$router.push("/")
+      }
+     
     },
     handleClickOutside(event) {
       const profileContainer = document.querySelector('.profile-container')
