@@ -15,7 +15,7 @@
         <router-link
           to="/dashboard"
           class="nav-link"
-          :class="{ active: activeItem === 'dashboard' }"
+          :class="{ active: currentRoute === 'dashboard' }"
           @click.native.prevent="setActive('dashboard')"
         >
           <i class="fas fa-home"></i>
