@@ -22,7 +22,6 @@
           <label for="password">Password</label>
           <div class="password-input-wrapper">
             <input 
-              type="password"
               id="password"
               v-model="password"
               :type="showPassword ? 'text' : 'password'"
