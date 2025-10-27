@@ -8,7 +8,7 @@ class Team extends Model
 {
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $fillable = ['id', 'name', 'founded_year', 'home_city', 'organization_id'];
+    protected $fillable = ['id', 'name', 'founded_year', 'home_city', 'organization_id','team_logo'];
 
     public function organization()
     {
