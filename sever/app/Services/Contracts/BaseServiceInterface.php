@@ -12,6 +12,11 @@ interface BaseServiceInterface
     public function update(int $id, array $data);
 
     public function destroy(int $id);
-
+    
+    public function softDeletes(int $id);
+    
     public function testBase();
+
+    public function imageProcessing();
+
 }

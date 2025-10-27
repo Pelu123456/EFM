@@ -43,4 +43,27 @@ class BaseService implements BaseServiceInterface
         $msg = $this->repository->testBase();
         return response()->json(['Service' => 'Base Service OK', 'Repository' => $msg], 200);
     }
+
+    public function uploadImage(UploadedFile $image, string $folder): array
+    {
+        $fileName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+        try {
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+            $path = $image->storeAs($folder, $fileName, 'public');
+            $url = Storage::disk('public')->url($path);
+        } catch (\Throwable $e) {
+            $publicPath = public_path("uploads/{$folder}");
+            if (!is_dir($publicPath)) {
+                mkdir($publicPath, 0775, true);
+            }
+
+            $image->move($publicPath, $fileName);
+            $path = "uploads/{$folder}/{$fileName}";
+            $url = asset($path);
+        }
+
+        return compact('path', 'url');
+    }
 }
