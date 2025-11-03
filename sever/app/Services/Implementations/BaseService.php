@@ -3,6 +3,9 @@ namespace App\Services\Implementations;
 
 use App\Services\Contracts\BaseServiceInterface;
 use App\Repositories\Contracts\BaseRepositoryInterface;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
 
 class BaseService implements BaseServiceInterface
 {
@@ -33,7 +36,7 @@ class BaseService implements BaseServiceInterface
         return $this->repository->update($id, $data);
     }
 
-    public function destroy(int $id)
+    public function delete(int $id)
     {
         return $this->repository->delete($id);
     }
@@ -44,26 +47,31 @@ class BaseService implements BaseServiceInterface
         return response()->json(['Service' => 'Base Service OK', 'Repository' => $msg], 200);
     }
 
-    public function uploadImage(UploadedFile $image, string $folder): array
+    protected function beforeStore(array $data): array { return $data; }
+    protected function afterStore($model, array $data): void {}
+    protected function beforeUpdate(int $id, array $data): array { return $data; }
+    protected function afterUpdate($model, array $data): void {}
+
+
+    public function prepareImage(UploadedFile $image, string $folder): array
     {
         $fileName = Str::uuid() . '.' . $image->getClientOriginalExtension();
-        try {
-            if (!Storage::disk('public')->exists($folder)) {
-                Storage::disk('public')->makeDirectory($folder);
-            }
-            $path = $image->storeAs($folder, $fileName, 'public');
-            $url = Storage::disk('public')->url($path);
-        } catch (\Throwable $e) {
-            $publicPath = public_path("uploads/{$folder}");
-            if (!is_dir($publicPath)) {
-                mkdir($publicPath, 0775, true);
-            }
-
-            $image->move($publicPath, $fileName);
-            $path = "uploads/{$folder}/{$fileName}";
-            $url = asset($path);
-        }
-
-        return compact('path', 'url');
+        
+        return [
+            'file' => $image,
+            'file_name' => $fileName,
+            'folder' => $folder
+        ];
     }
+
+    public function restore(int|string $id): bool
+    {
+        return $this->repository->restore($id);
+    }
+
+    public function forceDelete(int|string $id): bool
+    {
+        return $this->repository->forceDelete($id);
+    }
+    
 }

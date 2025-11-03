@@ -13,5 +13,5 @@ interface BaseRepositoryInterface
 
     public function delete(int $id);
 
-    public function testBase();
+    // public function testBase();
 }

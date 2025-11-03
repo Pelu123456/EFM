@@ -1,53 +1,47 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Services\Implementations\BaseService;
 abstract class Controller
 {
-    protected $service;
-      /**
-     * List all resources
-     */
-    public function index(Request $request): JsonResponse
+    protected BaseService $service;
+
+    public function __construct(BaseService $service)
     {
-        $data = $this->service->all($request->all());
-        return response()->json($data);
+        $this->service = $service;
     }
 
-     /**
-     * Show single resource
-     */
-    public function show(int $id): JsonResponse
+    public function index(?\Illuminate\Http\Request $request = null)
     {
-        $item = $this->service->find($id);
-        return response()->json($item);
+        return $this->service->all($request?->all() ?? []);
     }
 
-    public function store(Request $request): JsonResponse
+    public function show(int $id)
     {
-        $item = $this->service->create($request->all());
-        return response()->json($item, 201);
+        return $this->service->find($id);
     }
 
-    public function update(Request $request, int $id): JsonResponse
+    public function delete(int $id)
     {
-        $item = $this->service->update($id, $request->all());
-        return response()->json($item);
+        return $this->service->delete($id);
     }
 
-    public function destroy(int $id): JsonResponse
+    public function restore($id)
     {
-        $this->service->delete($id);
-        return response()->json(null, 204);
+        $this->service->restore($id);
+
+        return response()->json([
+            'message' => 'Restored successfully',
+        ]);
     }
 
-    public function softDelete(int $id): JsonResponse
+    public function forceDelete($id)
     {
-        if (method_exists($this->service, 'softDelete')) {
-            $this->service->softDelete($id);
-            return response()->json(['message' => 'Soft deleted'], 200);
-        }
+        $this->service->forceDelete($id);
 
-        return response()->json(['message' => 'Soft delete not supported'], 400);
+        return response()->json([
+            'message' => 'Permanently deleted successfully',
+        ]);
     }
+
 }

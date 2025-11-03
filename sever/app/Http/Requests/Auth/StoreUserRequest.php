@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests\Auth;
-
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
@@ -11,7 +11,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class StoreUserRequest extends FormRequest
     {
          return [
         'username'     => ['required', 'string', 'max:255','unique:users,username'],
+        'name'     => ['required','string','max:255'],
         'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         'password' => [
             'required',
@@ -34,6 +35,7 @@ class StoreUserRequest extends FormRequest
                 ->numbers()    
                 ->symbols()
         ],
+        'avatar'   => ['nullable','image','max:2048'],
     ];
     }
 }

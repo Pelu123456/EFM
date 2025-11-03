@@ -3,6 +3,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Repositories\Contracts\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 
 class BaseRepository implements BaseRepositoryInterface
 {
@@ -40,8 +41,66 @@ class BaseRepository implements BaseRepositoryInterface
         return $item ? $item->delete() : false;
     }
 
-    public function testBase()
+
+    protected function storeImage(UploadedFile $file, string $folder, string $fileName): array
     {
-        return 'Base Repo Testing OK';
+        try {
+            if (!Storage::disk('public')->exists($folder)) {
+                Storage::disk('public')->makeDirectory($folder);
+            }
+            
+            $path = $file->storeAs($folder, $fileName, 'public');
+            $url = config('app.url') . Storage::disk('public')->url($path);
+            Log::info('Request all data:', $data);
+            
+        } catch (\Throwable $e) {
+            $publicPath = public_path("storage/{$folder}");
+            if (!is_dir($publicPath)) {
+                mkdir($publicPath, 0775, true);
+            }
+            
+            $file->move($publicPath, $fileName);
+            $path = "storage/{$folder}/{$fileName}";
+            $url = config('app.url') . '/' . $path;
+        }
+        
+        return compact('path');
     }
+
+     protected function deleteImage(?string $path): void
+    {
+        if (!$path) {
+            return;
+        }
+        $decoded = json_decode($path, true);
+        if (json_last_error() === JSON_ERROR_NONE && isset($decoded['path'])) {
+            $path = $decoded['path'];
+        }
+        try {
+            if (Storage::disk('public')->exists($path)) {
+                Storage::disk('public')->delete($path);
+            }
+        } catch (\Throwable $e) {
+            // Fallback: delete from public path
+            $fullPath = public_path($path);
+            if (file_exists($fullPath) && is_file($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+    }
+
+    public function restore(int|string $id): bool
+    {
+        $item = $this->model->onlyTrashed()->findOrFail($id);
+
+        return $item->restore();
+    }
+
+    public function forceDelete(int|string $id): bool
+    {
+        $item = $this->model->onlyTrashed()->findOrFail($id);
+
+        return $item->forceDelete();
+    }
+
 }
