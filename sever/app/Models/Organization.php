@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Organization extends Model
 {
-    protected $keyType = 'string';
-    public $incrementing = false;
-    protected $fillable = ['id', 'name', 'level', 'parent_id'];
+    protected $fillable = [
+        'name',
+        'logo',
+        'parent_id',
+        'user_id',
+    ];
 
     public function parent()
     {
@@ -26,9 +29,9 @@ class Organization extends Model
         return $this->hasMany(Team::class);
     }
 
-    public function tournaments()
+    public function Competition()
     {
-        return $this->hasMany(Tournament::class);
+        return $this->hasMany(Competition::class);
     }
 }
 
