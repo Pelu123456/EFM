@@ -55,7 +55,6 @@ class UserService extends BaseService
         // Prepare image if uploaded
         if (isset($data['avatar']) && $data['avatar'] instanceof UploadedFile) {
             $imageData = $this->prepareImage($data['avatar'], 'users');
-            Log::debug($imageData);
             unset($data['avatar']); // Remove UploadedFile from data array
         }
         return [

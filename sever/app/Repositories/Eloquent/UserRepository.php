@@ -23,7 +23,7 @@ class UserRepository extends BaseRepository
                 $imageData['file_name']
             );
 
-            $user->update(['avatar_path' => $imagePath]);
+            $user->update(['avatar' => $imagePath]);
             $user->refresh(); 
         }
         
@@ -62,15 +62,15 @@ class UserRepository extends BaseRepository
         return $user;
     }
     
-    public function delete(int $id): bool
+    public function forceDelete(int $id): bool
     {
         $user = $this->model->findOrFail($id);
         
-        if ($user->avatar_path) {
+        if ($user->avatar) {
             $this->deleteImage($user->avatar);
         }
         
-        return $user->delete();
+        return $user->forceDelete();
     }
 
 }
