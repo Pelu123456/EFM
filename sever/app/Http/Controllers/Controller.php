@@ -13,12 +13,12 @@ abstract class Controller
 
     public function index(?\Illuminate\Http\Request $request = null)
     {
-        return $this->service->all($request?->all() ?? []);
+        return $this->service->getAll($request?->all() ?? []);
     }
 
     public function show(int $id)
     {
-        return $this->service->find($id);
+        return $this->service->getById($id);
     }
 
     public function delete(int $id)

@@ -26,7 +26,7 @@ class BaseService implements BaseServiceInterface
         return $this->repository->find($id);
     }
 
-    public function store(array $data)
+    public function create(array $data)
     {
         return $this->repository->create($data);
     }

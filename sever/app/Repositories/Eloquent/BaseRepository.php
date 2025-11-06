@@ -32,8 +32,15 @@ class BaseRepository implements BaseRepositoryInterface
     public function update(int $id, array $data)
     {
         $item = $this->find($id);
-        return $item ? $item->update($data) : false;
+
+        if (!$item) {
+            return null;
+        }
+
+        $item->update($data);
+        return $item->refresh();
     }
+
 
     public function delete(int $id)
     {
@@ -42,7 +49,7 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
 
-    protected function storeImage(UploadedFile $file, string $folder, string $fileName): array
+    protected function storeImage(UploadedFile $file, string $folder, string $fileName): string
     {
         try {
             if (!Storage::disk('public')->exists($folder)) {
@@ -64,17 +71,13 @@ class BaseRepository implements BaseRepositoryInterface
             $url = config('app.url') . '/' . $path;
         }
         
-        return compact('path');
+        return $path;
     }
 
      protected function deleteImage(?string $path): void
     {
         if (!$path) {
             return;
-        }
-        $decoded = json_decode($path, true);
-        if (json_last_error() === JSON_ERROR_NONE && isset($decoded['path'])) {
-            $path = $decoded['path'];
         }
         try {
             if (Storage::disk('public')->exists($path)) {
@@ -96,7 +99,7 @@ class BaseRepository implements BaseRepositoryInterface
         return $item->restore();
     }
 
-    public function forceDelete(int|string $id): bool
+    public function forceDelete(int $id): bool
     {
         $item = $this->model->onlyTrashed()->findOrFail($id);
 
