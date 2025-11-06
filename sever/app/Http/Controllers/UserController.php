@@ -16,7 +16,8 @@ class UserController extends Controller
 
     public function __construct(UserService $userService)
     {
-         parent::__construct($userService);
+        $this->userService = $userService;
+        parent::__construct($userService);
     }
 
     public function store(StoreUserRequest $request)
