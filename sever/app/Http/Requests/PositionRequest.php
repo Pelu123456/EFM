@@ -23,8 +23,13 @@ class PositionRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'type_ids' => 'array',
-            'type_ids.*' => 'exists:position_types,id',
+            'code_name' => [
+                'required',
+                'string',
+                'max:3',
+                'regex:/^[A-Z]{1,3}$/',
+            ],
+            'position_alias_id' => 'required|exists:position_aliases,id',
         ];
     }
 }

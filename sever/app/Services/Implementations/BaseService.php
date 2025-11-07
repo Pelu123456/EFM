@@ -25,6 +25,10 @@ class BaseService implements BaseServiceInterface
     {
         return $this->repository->find($id);
     }
+    public function getByParentId($id)
+    {
+        return $this->repository->getByParentId($id);
+    }
 
     public function create(array $data)
     {

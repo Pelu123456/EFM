@@ -26,11 +26,6 @@ class OrganizationService extends BaseService
             unset($data['logo']); // Remove UploadedFile from data array
         }
 
-        // Hash password if provided
-        if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        }
-
         return [
             'data' => $data,
             'imageData' => $imageData

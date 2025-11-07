@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
-    protected $keyType = 'string';
-    public $incrementing = false;
-    protected $fillable = ['id', 'full_name', 'birth_date', 'nationality', 'position','player_avatar'];
+
+    protected $fillable = ['id', 'full_name', 'birth_date','team_id', 'nationality', 'position_id','player_avatar','user_id'];
 
     public function team()
     {

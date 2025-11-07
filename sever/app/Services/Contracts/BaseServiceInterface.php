@@ -17,6 +17,8 @@ interface BaseServiceInterface
     public function restore(int|string $id): bool;
     
     public function forceDelete(int|string $id): bool;
+
+    public function getByParentId($id);
     
     // public function testBase();
 

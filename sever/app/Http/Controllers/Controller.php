@@ -11,9 +11,9 @@ abstract class Controller
         $this->service = $service;
     }
 
-    public function index(?\Illuminate\Http\Request $request = null)
+    public function index(?int $id = null)
     {
-        return $this->service->getAll($request?->all() ?? []);
+        return $this->service->getAll($id);
     }
 
     public function show(int $id)
@@ -42,6 +42,11 @@ abstract class Controller
         return response()->json([
             'message' => 'Permanently deleted successfully',
         ]);
+    }
+
+    public function getByParentId($id)
+    {
+        return $this->service->getByParentId($id);
     }
 
 }
